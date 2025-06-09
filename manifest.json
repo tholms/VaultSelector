@@ -3,7 +3,7 @@
 	"name": "Vault Selector",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Automatically removes the 'open' property from vaults when Obsidian closes, allowing you to choose which vault to open each time.",
+	"description": "Automatically remove the 'open' property from the global json file on program exit, allowing you to choose which vault to open each time.",
 	"author": "tholms",
 	"authorUrl": "https://github.com/tholms",
 	"isDesktopOnly": true

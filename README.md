@@ -1,11 +1,10 @@
 # Vault Selector
 
-This Obsidian plugin automatically removes the `"open": true` property from vaults when Obsidian closes. This allows you to choose which vault to open each time you launch Obsidian, rather than automatically opening the last used vault.
+This Obsidian plugin automatically removes the `"open": true` property from all vaults within the global obsidian.json when Obsidian closes. This allows you to choose which vault to open each time you launch Obsidian, rather than automatically opening the last used vault.
 
 ## Features
 
-- Automatically removes the `"open": true` property from all vaults when Obsidian closes
-- Works with the global Obsidian configuration
+- Automatically removes the `"open": true` property from global obsidian.json file
 - No settings required - just install and use
 
 ## Installation
