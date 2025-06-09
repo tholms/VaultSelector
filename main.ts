@@ -27,11 +27,30 @@ export default class VaultSelectorPlugin extends Plugin {
 		await this.handleUnload();
 	}
 
+	private getObsidianConfigPath(): string {
+		const platform = process.platform;
+		let configPath: string;
+
+		switch (platform) {
+			case 'win32':
+				configPath = path.join(process.env.APPDATA || '', 'obsidian', 'obsidian.json');
+				break;
+			case 'darwin':
+				configPath = path.join(os.homedir(), 'Library', 'Application Support', 'obsidian', 'obsidian.json');
+				break;
+			case 'linux':
+				configPath = path.join(os.homedir(), '.config', 'obsidian', 'obsidian.json');
+				break;
+			default:
+				throw new Error(`Unsupported platform: ${platform}`);
+		}
+
+		return configPath;
+	}
+
 	private async handleUnload() {
 		try {
-			// Get the path to the global obsidian.json in AppData
-			const appDataPath = process.env.APPDATA || os.homedir();
-			const configPath = path.join(appDataPath, 'obsidian', 'obsidian.json');
+			const configPath = this.getObsidianConfigPath();
 
 			// Check if file exists
 			if (!fs.existsSync(configPath)) {
