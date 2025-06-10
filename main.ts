@@ -1,4 +1,4 @@
-import { Notice, Plugin } from 'obsidian';
+import { Notice, Plugin, Platform } from 'obsidian';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as os from 'os';
@@ -28,21 +28,16 @@ export default class VaultSelectorPlugin extends Plugin {
 	}
 
 	private getObsidianConfigPath(): string {
-		const platform = process.platform;
 		let configPath: string;
 
-		switch (platform) {
-			case 'win32':
-				configPath = path.join(process.env.APPDATA || '', 'obsidian', 'obsidian.json');
-				break;
-			case 'darwin':
-				configPath = path.join(os.homedir(), 'Library', 'Application Support', 'obsidian', 'obsidian.json');
-				break;
-			case 'linux':
-				configPath = path.join(os.homedir(), '.config', 'obsidian', 'obsidian.json');
-				break;
-			default:
-				throw new Error(`Unsupported platform: ${platform}`);
+		if (Platform.isWin) {
+			configPath = path.join(process.env.APPDATA || '', 'obsidian', 'obsidian.json');
+		} else if (Platform.isMacOS) {
+			configPath = path.join(os.homedir(), 'Library', 'Application Support', 'obsidian', 'obsidian.json');
+		} else if (Platform.isLinux) {
+			configPath = path.join(os.homedir(), '.config', 'obsidian', 'obsidian.json');
+		} else {
+			throw new Error('Unsupported platform');
 		}
 
 		return configPath;
